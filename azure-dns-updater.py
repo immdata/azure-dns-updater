@@ -1,4 +1,4 @@
-from azure.common.credentials import ServicePrincipalCredentials
+from azure.identity import ClientSecretCredential
 from azure.mgmt.dns import DnsManagementClient
 from requests import get
 from socket import gethostbyname
@@ -35,10 +35,10 @@ headers = {
     "Connection": "close"
 }
 
-credentials = ServicePrincipalCredentials(
+credentials = ClientSecretCredential(
+    tenant_id=TENANT_ID,
     client_id=APP_ID,
-    secret=APP_SECRET,
-    tenant=TENANT_ID
+    client_secret=APP_SECRET
 )
 
 dns_client = DnsManagementClient(
